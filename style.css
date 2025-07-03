@@ -1,0 +1,242 @@
+/* === TEMA DARK MODE COM AZUL NEON - VARIÁVEIS GLOBAIS === */
+:root {
+    /* Paleta de Cores */
+    --cor-fundo: #0d0d0d; /* Um preto ainda mais profundo */
+    --cor-fundo-elemento: #1a1a1a; /* Um cinza bem escuro para contraste */
+    --cor-borda: #2a2a2a; /* Borda sutil */
+    
+    /* Cores de Destaque */
+    --cor-primaria-neon: #00bfff; /* Deep Sky Blue - Azul Neon Principal */
+    --cor-secundaria-neon: #00ff7f; /* Spring Green - Um verde neon para o botão de girar */
+    
+    /* Cores de Texto */
+    --cor-texto-principal: #cccccc; /* Branco um pouco mais suave */
+    --cor-texto-titulo: #ffffff;
+    --cor-texto-secundario: #888888;
+    
+    /* Sombras Neon */
+    --sombra-neon-primaria: 0 0 5px var(--cor-primaria-neon), 0 0 10px var(--cor-primaria-neon);
+    
+    /* Configurações Gerais */
+    --raio-borda: 8px;
+    --sombra-sutil: 0 4px 15px rgba(0, 0, 0, 0.3);
+    --transicao-padrao: all 0.3s ease-in-out;
+}
+
+/* === CONFIGURAÇÕES GLOBAIS DO BODY === */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* === BARRA DE NAVEGAÇÃO === */
+nav {
+    background-color: var(--cor-fundo-elemento);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--cor-borda);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+nav a {
+    color: var(--cor-texto-principal);
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: 500;
+    transition: var(--transicao-padrao);
+}
+
+nav a:hover {
+    color: var(--cor-primaria-neon);
+    text-shadow: 0 0 3px var(--cor-primaria-neon);
+}
+
+nav a strong {
+    font-size: 1.3em;
+    color: var(--cor-primaria-neon);
+    font-weight: 700;
+    text-shadow: var(--sombra-neon-primaria);
+    animation: pulse-blue 4s infinite;
+}
+
+/* Animação de pulso para o título */
+@keyframes pulse-blue {
+    0% { text-shadow: 0 0 5px var(--cor-primaria-neon), 0 0 10px var(--cor-primaria-neon); }
+    50% { text-shadow: 0 0 10px var(--cor-primaria-neon), 0 0 20px var(--cor-primaria-neon); }
+    100% { text-shadow: 0 0 5px var(--cor-primaria-neon), 0 0 10px var(--cor-primaria-neon); }
+}
+
+
+nav .user-info {
+    color: var(--cor-texto-secundario);
+    margin-right: 1rem;
+}
+
+/* === CONTAINER PRINCIPAL === */
+.container {
+    max-width: 600px;
+    width: 90%;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: var(--cor-fundo-elemento);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
+    flex-grow: 1;
+    text-align: center;
+    box-shadow: var(--sombra-sutil);
+}
+
+.container h2 {
+    font-size: 2.2em;
+    color: var(--cor-texto-titulo);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.container p {
+    color: var(--cor-texto-secundario);
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+/* === FORMULÁRIOS (Login/Registro) === */
+form {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 2rem;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    padding: 12px 15px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
+    font-size: 1em;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    transition: var(--transicao-padrao);
+}
+
+input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: var(--cor-primaria-neon);
+    box-shadow: 0 0 0 3px rgba(0, 191, 255, 0.2);
+}
+
+/* === BOTÕES === */
+button, .button-link {
+    padding: 12px 20px;
+    background-color: transparent;
+    color: var(--cor-primaria-neon);
+    font-size: 1em;
+    font-weight: bold;
+    border: 2px solid var(--cor-primaria-neon);
+    border-radius: var(--raio-borda);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transicao-padrao);
+}
+
+button:hover, .button-link:hover {
+    background-color: var(--cor-primaria-neon);
+    color: var(--cor-fundo);
+    box-shadow: var(--sombra-neon-primaria);
+}
+
+#spin_button {
+    color: var(--cor-secundaria-neon);
+    border-color: var(--cor-secundaria-neon);
+}
+
+#spin_button:hover {
+    background-color: var(--cor-secundaria-neon);
+    color: var(--cor-fundo);
+    box-shadow: 0 0 5px var(--cor-secundaria-neon), 0 0 10px var(--cor-secundaria-neon);
+}
+
+#spin_button:disabled {
+    background-color: transparent;
+    border-color: var(--cor-texto-secundario);
+    color: var(--cor-texto-secundario);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* === MENSAGENS DE ALERTA === */
+.message {
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: var(--raio-borda);
+    font-size: 1em;
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+}
+
+.message.success {
+    background-color: rgba(0, 255, 127, 0.1);
+    color: var(--cor-secundaria-neon);
+    border-color: var(--cor-secundaria-neon);
+}
+
+.message.error {
+    background-color: rgba(255, 69, 58, 0.1);
+    color: #ff453a;
+    border-color: #ff453a;
+}
+
+/* === ROLETA === */
+.roulette-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+/* === TABELA DE HISTÓRICO / PRÊMIOS === */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+    font-size: 1em;
+}
+
+table th, table td {
+    border-bottom: 1px solid var(--cor-borda);
+    padding: 15px;
+    text-align: left;
+}
+
+table th {
+    color: var(--cor-primaria-neon);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}
+
+table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* === RODAPÉ === */
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    color: var(--cor-texto-secundario);
+    font-size: 0.9em;
+    background-color: var(--cor-fundo);
+    margin-top: auto;
+}
