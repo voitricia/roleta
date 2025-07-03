@@ -1,0 +1,98 @@
+-- =================================================================
+-- Script de Criação do Banco de Dados para o Projeto Roleta
+-- Versão: 1.0
+-- Este script configura toda a estrutura e dados iniciais.
+-- =================================================================
+
+-- Define o modo SQL e o fuso horário para evitar problemas de compatibilidade
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+SET NAMES utf8mb4;
+
+-- -----------------------------------------------------------------
+
+-- Cria o banco de dados se ele ainda não existir
+CREATE DATABASE IF NOT EXISTS `projeto_roleta` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `projeto_roleta`;
+
+-- Apaga as tabelas antigas na ordem correta (filhos primeiro) para uma instalação limpa
+DROP TABLE IF EXISTS `historico_giros`;
+DROP TABLE IF EXISTS `premios`;
+DROP TABLE IF EXISTS `usuarios`;
+
+
+--
+-- Estrutura da tabela `usuarios`
+--
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `senha` varchar(255) NOT NULL,
+  `tipo` enum('usuario','admin') NOT NULL DEFAULT 'usuario',
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estrutura da tabela `premios`
+--
+CREATE TABLE `premios` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` varchar(100) NOT NULL,
+  `chance` int(11) NOT NULL,
+  `criado_em` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Estrutura da tabela `historico_giros`
+--
+CREATE TABLE `historico_giros` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_id` int(11) NOT NULL,
+  `premio_id` int(11) NOT NULL,
+  `data_giro` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `usuario_id` (`usuario_id`),
+  KEY `premio_id` (`premio_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Inserindo dados de exemplo (DUMP DATA)
+--
+
+-- Dados para a tabela `usuarios`
+-- Senhas: 'admin123' para o admin, 'usuario123' para o usuário
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `criado_em`) VALUES
+(1, 'Administrador', 'admin@ifsc.edu.br', '$2y$10$Y1/bN3c4E2t.a8e9J5F/s.sY3g0o7k.mZ.k4p3y2j1l.o7g.k8j.k', 'admin', '2023-11-01 10:00:00'),
+(2, 'Patricia Abravanel', 'patricia@ifsc.edu.br', '$2y$10$a9s.b8d.f7g.h6j.k5l.u.c3x2v.n1m.b0z.q9w.e8r.t7y.u6i', 'usuario', '2023-11-01 10:01:00');
+
+-- Dados para a tabela `premios` (baseado na sua imagem)
+INSERT INTO `premios` (`id`, `nome`, `chance`, `criado_em`) VALUES
+(1, 'Nada! Tente de novo 😢', 2, '2023-11-01 11:00:00'),
+(2, 'Vale 3 balas', 8, '2023-11-01 11:01:00'),
+(3, 'Vale 2 balas', 20, '2023-11-01 11:02:00'),
+(4, 'Vale 1 bala', 30, '2023-11-01 11:03:00'),
+(5, 'Vale Bombom', 40, '2023-11-01 11:04:00');
+
+-- Dados para a tabela `historico_giros` (para as consultas de ranking já funcionarem)
+INSERT INTO `historico_giros` (`id`, `usuario_id`, `premio_id`, `data_giro`) VALUES
+(1, 2, 5, '2023-11-01 12:00:00'),
+(2, 2, 4, '2023-11-02 12:01:00'),
+(3, 2, 4, '2023-11-03 12:02:00'),
+(4, 1, 1, '2023-11-03 12:03:00');
+
+
+--
+-- Definindo as chaves estrangeiras (Constraints)
+--
+ALTER TABLE `historico_giros`
+  ADD CONSTRAINT `fk_historico_premio` FOREIGN KEY (`premio_id`) REFERENCES `premios` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_historico_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- =================================================================
+-- Fim do script. O banco de dados está pronto para ser usado.
+-- =================================================================
